@@ -15,6 +15,9 @@
         android:theme="@style/Theme.DrugTracker"
         tools:targetApi="31">
         <activity
+            android:name=".user.drugDetails.DrugDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.HomeActivity"
             android:exported="false" />
         <activity

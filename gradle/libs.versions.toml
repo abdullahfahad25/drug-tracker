@@ -10,6 +10,8 @@ activity = "1.10.1"
 constraintlayout = "2.2.1"
 retrofit = "2.11.0"
 roomRuntime = "2.6.1"
+googleGmsGoogleServices = "4.4.3"
+firebaseAuth = "24.0.1"
 
 [libraries]
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
@@ -27,7 +29,9 @@ room-guava = { module = "androidx.room:room-guava", version.ref = "roomRuntime" 
 room-paging = { module = "androidx.room:room-paging", version.ref = "roomRuntime" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 room-testing = { module = "androidx.room:room-testing", version.ref = "roomRuntime" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 

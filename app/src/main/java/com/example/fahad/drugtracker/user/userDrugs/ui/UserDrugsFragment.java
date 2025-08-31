@@ -109,6 +109,7 @@ public class UserDrugsFragment extends Fragment {
                 int pos = viewHolder.getAdapterPosition();
                 DrugEntity drug = adapter.getItemAt(pos);
                 viewModel.deleteDrug(drug);
+                viewModel.loadUserDrugs();
             }
         };
 

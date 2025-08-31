@@ -49,6 +49,7 @@ public class DrugDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 Toast.makeText(DrugDetailActivity.this, s, Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

@@ -2,8 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
+
+    <!-- Top AppBar with Back -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/searchAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:title="Search Drugs"
+        app:titleTextColor="@android:color/black" />
 
     <!-- Search input row -->
     <LinearLayout

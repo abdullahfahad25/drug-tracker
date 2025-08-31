@@ -18,11 +18,13 @@ import com.example.fahad.drugtracker.R;
 import com.example.fahad.drugtracker.common.data.remote.model.DrugsResponse;
 import com.example.fahad.drugtracker.user.drugDetails.DrugDetailActivity;
 import com.example.fahad.drugtracker.user.search.viewmodel.SearchViewModel;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class SearchFragment extends Fragment {
 
     private EditText textSearch;
     private Button btnSearch;
+    private MaterialToolbar toolbar;
     private RecyclerView recyclerView;
     private SearchResultAdapter adapter;
     private SearchViewModel viewModel;
@@ -37,6 +39,7 @@ public class SearchFragment extends Fragment {
 
         textSearch = root.findViewById(R.id.etSearch);
         btnSearch = root.findViewById(R.id.btnSearch);
+        toolbar = root.findViewById(R.id.searchAppBar);
 
         recyclerView = root.findViewById(R.id.rvResults);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -69,6 +72,10 @@ public class SearchFragment extends Fragment {
                 intent.putExtra("extra_rxcui", item.rxcui);
                 startActivity(intent);
             }
+        });
+
+        toolbar.setNavigationOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
         });
     }
 

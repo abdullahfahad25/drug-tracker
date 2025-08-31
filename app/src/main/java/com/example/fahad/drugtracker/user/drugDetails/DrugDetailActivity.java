@@ -44,7 +44,7 @@ public class DrugDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String extraName = intent.getStringExtra("extra_name");
         rxcui = intent.getStringExtra("extra_rxcui");
-        Log.d(TAG, "onCreate: name: " + name + ", rxcui: " + rxcui);
+        Log.d(TAG, "onCreate: name: " + extraName + ", rxcui: " + rxcui);
 
         setupObservers();
         setupCLickListeners();

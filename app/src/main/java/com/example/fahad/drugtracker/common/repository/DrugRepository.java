@@ -89,7 +89,7 @@ public class DrugRepository {
         Log.d(TAG, "findByRxcui: rxcui: " + rxcui);
         executorService.submit(() -> {
             DrugEntity e = drugDao.findByRxcui(rxcui);
-            Log.d(TAG, "findByRxcui: DrugEntity: " + e.toString());
+            Log.d(TAG, "findByRxcui: DrugEntity: " + (e != null ? e.toString() : "null"));
             cb.onFound(e);
         });
     }

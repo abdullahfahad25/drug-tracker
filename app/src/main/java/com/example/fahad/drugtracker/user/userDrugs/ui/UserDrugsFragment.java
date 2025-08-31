@@ -1,5 +1,7 @@
 package com.example.fahad.drugtracker.user.userDrugs.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,15 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.fahad.drugtracker.R;
 import com.example.fahad.drugtracker.common.data.local.model.DrugEntity;
+import com.example.fahad.drugtracker.user.drugDetails.DrugDetailActivity;
 import com.example.fahad.drugtracker.user.userDrugs.viewmodel.UserDrugsViewModel;
 
 import java.util.List;
 
 public class UserDrugsFragment extends Fragment {
     private RecyclerView recyclerView;
+    private Button btnCustomAdd;
     private UserDrugsAdapter adapter;
     private UserDrugsViewModel viewModel;
 
@@ -33,6 +40,8 @@ public class UserDrugsFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(UserDrugsViewModel.class);
 
+        btnCustomAdd = root.findViewById(R.id.btnCustom);
+
         recyclerView = root.findViewById(R.id.trackerRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new UserDrugsAdapter();
@@ -40,10 +49,31 @@ public class UserDrugsFragment extends Fragment {
 
         setupObservers();
         setupSwipeDeleteCallback();
+        setupClickListeners();
 
         viewModel.loadUserDrugs();
 
         return root;
+    }
+
+    private void setupClickListeners() {
+        btnCustomAdd.setOnClickListener(v -> {
+            EditText input = new EditText(getContext());
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Add Custom Medication")
+                    .setView(input)
+                    .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String name = input.getText().toString().trim();
+                            if (name != null && !name.isEmpty()) {
+                                viewModel.insertCustomDrug(name);
+                            }
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        });
     }
 
     private void setupObservers() {
@@ -51,6 +81,16 @@ public class UserDrugsFragment extends Fragment {
             @Override
             public void onChanged(List<DrugEntity> drugEntities) {
                 adapter.setItems(drugEntities);
+            }
+        });
+
+        viewModel.getMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                if (s.equals("Added")) {
+                    viewModel.loadUserDrugs();
+                }
             }
         });
     }
@@ -79,5 +119,6 @@ public class UserDrugsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         viewModel.getDrugs().removeObservers(getViewLifecycleOwner());
+        viewModel.getMessage().removeObservers(getViewLifecycleOwner());
     }
 }

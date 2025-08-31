@@ -1,6 +1,7 @@
 package com.example.fahad.drugtracker.user;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -16,9 +17,11 @@ import com.example.fahad.drugtracker.user.search.ui.SearchFragment;
 import com.example.fahad.drugtracker.user.userDrugs.ui.UserDrugsFragment;
 
 public class HomeActivity extends AppCompatActivity {
+    private static final String TAG = "HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate:");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 

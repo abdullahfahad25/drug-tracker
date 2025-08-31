@@ -2,6 +2,7 @@ package com.example.fahad.drugtracker.user.drugDetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.example.fahad.drugtracker.R;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class DrugDetailActivity extends AppCompatActivity {
+    private static final String TAG = "DrugDetailActivity";
     private TextView name;
     private TextView description;
     private Button btnAdd;
@@ -28,6 +30,7 @@ public class DrugDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate:");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drug_detail);
 
@@ -41,6 +44,7 @@ public class DrugDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String extraName = intent.getStringExtra("extra_name");
         rxcui = intent.getStringExtra("extra_rxcui");
+        Log.d(TAG, "onCreate: name: " + name + ", rxcui: " + rxcui);
 
         setupObservers();
         setupCLickListeners();
@@ -69,12 +73,29 @@ public class DrugDetailActivity extends AppCompatActivity {
 
     private void updateValues(String extraName, String rxcui) {
         name.setText(extraName);
-        String desc = rxcui + "Dummy Data";
+
+        String dummyDescription = "Paracetamol is a common pain reliever and a fever reducer. " +
+                "It is used to treat many conditions such as headache, muscle aches, arthritis, backache, toothaches, colds, and fevers. " +
+                "It works by blocking the production of certain chemicals in the brain that signal pain and fever. " +
+                "Do not exceed the recommended dose as it may cause liver damage. " +
+                "\n\nDosage:\n- Adults: 500mg to 1000mg every 4-6 hours as needed (max 4000mg/day)\n" +
+                "- Children: Dose based on weight and age, follow pediatrician advice\n\n" +
+                "Side effects are rare but may include rash, nausea, or allergic reactions. " +
+                "Always read the package instructions carefully. " +
+                "If symptoms persist or worsen, consult a healthcare provider immediately. " +
+                "\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " +
+                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
+                "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+
+        String desc = rxcui + "\n" + dummyDescription;
         description.setText(desc);
     }
 
     @Override
     protected void onDestroy() {
+        Log.d(TAG, "onDestroy:");
         super.onDestroy();
         viewModel.getMessage().removeObservers(this);
     }

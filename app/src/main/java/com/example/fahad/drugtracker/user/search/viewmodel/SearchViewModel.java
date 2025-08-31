@@ -1,6 +1,7 @@
 package com.example.fahad.drugtracker.user.search.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -19,6 +20,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchViewModel extends AndroidViewModel {
+    private static final String TAG = "SearchViewModel";
+
     private final DrugRepository repository;
     private final MutableLiveData<List<DrugsResponse.ConceptProperty>> results = new MutableLiveData<>();
 
@@ -37,6 +40,7 @@ public class SearchViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<DrugsResponse> call, Response<DrugsResponse> response) {
                 List<DrugsResponse.ConceptProperty> flat = new ArrayList<>();
+                Log.d(TAG, "onResponse: " + response.toString());
                 if (response.isSuccessful()
                         && response.body() != null
                         && response.body().drugGroup != null

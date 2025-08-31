@@ -2,6 +2,7 @@ package com.example.fahad.drugtracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,14 +14,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.fahad.drugtracker.login.LoginActivity;
 import com.example.fahad.drugtracker.signup.SignupActivity;
+import com.example.fahad.drugtracker.user.HomeActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
     private TextView alreadyAcc;
     private Button createAcc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate:");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

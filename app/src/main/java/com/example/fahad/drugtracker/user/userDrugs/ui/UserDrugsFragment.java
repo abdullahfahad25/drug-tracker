@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import com.example.fahad.drugtracker.user.userDrugs.viewmodel.UserDrugsViewModel
 import java.util.List;
 
 public class UserDrugsFragment extends Fragment {
+    private static final String TAG = "UserDrugsFragment";
+
     private RecyclerView recyclerView;
     private Button btnCustomAdd;
     private UserDrugsAdapter adapter;
@@ -35,6 +38,8 @@ public class UserDrugsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView:");
+
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_user_drugs, container, false);
 
@@ -118,6 +123,7 @@ public class UserDrugsFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        Log.d(TAG, "onDestroyView:");
         super.onDestroyView();
         viewModel.getDrugs().removeObservers(getViewLifecycleOwner());
         viewModel.getMessage().removeObservers(getViewLifecycleOwner());

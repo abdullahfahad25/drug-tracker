@@ -1,6 +1,7 @@
 package com.example.fahad.drugtracker.common.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -47,23 +48,27 @@ public class DrugRepository {
 
     // Network call (asynchronous) to search drugs
     public void searchDrugs(final String name, final Callback<DrugsResponse> cb) {
+        Log.d(TAG, "searchDrugs: name: " + name);
         apiService.getDrugs(name, "psn").enqueue(cb);
     }
 
     public void getUserDrugs(CompleteCallback<List<DrugEntity>> cb) {
         executorService.submit(() -> {
             List<DrugEntity> list = drugDao.getAll();
+            Log.d(TAG, "getUserDrugs: list: " + list.toString());
             cb.onComplete(list);
         });
     }
 
     public void insertUserDrug(final DrugEntity drug) {
+        Log.d(TAG, "insertUserDrug: " + drug.toString());
         executorService.submit(() -> {
             drugDao.insert(drug);
         });
     }
 
     public void deleteUserDrug(final DrugEntity drug) {
+        Log.d(TAG, "deleteUserDrug: " + drug.toString());
         executorService.submit(() -> {
             drugDao.delete(drug);
         });
@@ -71,18 +76,20 @@ public class DrugRepository {
 
     // Count by source (call returns asynchronously through callback)
     public void countBySource(final String source, final ResultCallback cb) {
-        //TODO: Must use Listenable future to handle UI updates
+        Log.d(TAG, "countBySource: source: " + source);
         executorService.submit(() -> {
             int count = drugDao.countBySource(source);
+            Log.d(TAG, "countBySource: count: " + count);
             if (cb != null)
                 cb.onResult(count);
         });
     }
 
     public void findByRxcui(final String rxcui, final FinderCallback cb) {
-        //TODO: Must use Listenable future to handle UI updates
+        Log.d(TAG, "findByRxcui: rxcui: " + rxcui);
         executorService.submit(() -> {
             DrugEntity e = drugDao.findByRxcui(rxcui);
+            Log.d(TAG, "findByRxcui: DrugEntity: " + e.toString());
             cb.onFound(e);
         });
     }

@@ -43,7 +43,7 @@ public class UserDrugsViewModel extends AndroidViewModel {
     public void insertCustomDrug(final String name) {
         repository.countBySource("CUSTOM", count -> {
             if (count >= 3) {
-                message.postValue("Max 3 API drugs reached");
+                message.postValue("Max 3 CUSTOM drugs reached");
                 return;
             }
 

@@ -17,13 +17,13 @@ How it works:
 
 Tech Stack used:
 
-Language: Java version: 21
-Retrofit2 version: 2.11.0
-GSON Converter version: 2.11.0
-Gradle version: 8.9
-AGP version: 8.7.3
-Android Studio: Lady Bug
-Minimum SDK Android 10
-Android Target SDK 35
+1. Language: Java version: 21 
+2. Retrofit2 version: 2.11.0 
+3. GSON Converter version: 2.11.0 
+4. Gradle version: 8.9 
+5. AGP version: 8.7.3 
+6. Android Studio: Lady Bug 
+7. Minimum SDK Android 10 
+8. Android Target SDK 35
 
 Architecture Used: MVVM

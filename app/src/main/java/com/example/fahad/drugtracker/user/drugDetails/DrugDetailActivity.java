@@ -15,11 +15,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fahad.drugtracker.R;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class DrugDetailActivity extends AppCompatActivity {
     private TextView name;
     private TextView description;
     private Button btnAdd;
+    private MaterialToolbar toolbar;
     private DrugDetailsViewModel viewModel;
 
     private String rxcui;
@@ -34,6 +36,7 @@ public class DrugDetailActivity extends AppCompatActivity {
         name = findViewById(R.id.drugName);
         description = findViewById(R.id.drugDescription);
         btnAdd = findViewById(R.id.addDrugBtn);
+        toolbar = findViewById(R.id.drugDetailAppBar);
 
         Intent intent = getIntent();
         String extraName = intent.getStringExtra("extra_name");
@@ -57,6 +60,10 @@ public class DrugDetailActivity extends AppCompatActivity {
     private void setupCLickListeners() {
         btnAdd.setOnClickListener(v -> {
             viewModel.insertDrugs(name.getText().toString(), rxcui);
+        });
+
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
         });
     }
 

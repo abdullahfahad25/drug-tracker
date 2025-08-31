@@ -69,7 +69,7 @@ public class UserDrugsFragment extends Fragment {
                 viewModel.deleteDrug(drug);
             }
         };
-        
+
         new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
     }
 

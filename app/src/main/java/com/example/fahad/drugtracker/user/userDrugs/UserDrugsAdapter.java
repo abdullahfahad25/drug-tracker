@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fahad.drugtracker.R;
 import com.example.fahad.drugtracker.common.data.local.model.DrugEntity;
-import com.example.fahad.drugtracker.common.data.remote.model.DrugsResponse;
-import com.example.fahad.drugtracker.user.search.SearchResultAdapter;
+
 
 import java.util.ArrayList;
 import java.util.List;

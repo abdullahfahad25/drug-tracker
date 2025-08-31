@@ -1,8 +1,9 @@
-package com.example.fahad.drugtracker.user.search;
+package com.example.fahad.drugtracker.user.search.ui;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.fahad.drugtracker.R;
+import com.example.fahad.drugtracker.user.search.viewmodel.SearchViewModel;
 
 public class SearchFragment extends Fragment {
 
@@ -20,12 +22,15 @@ public class SearchFragment extends Fragment {
     private Button btnSearch;
     private RecyclerView recyclerView;
     private SearchResultAdapter adapter;
+    private SearchViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_search, container, false);
+
+        viewModel = new ViewModelProvider(this).get(SearchViewModel.class);
 
         textSearch = root.findViewById(R.id.etSearch);
         btnSearch = root.findViewById(R.id.btnSearch);
@@ -35,6 +40,34 @@ public class SearchFragment extends Fragment {
         adapter = new SearchResultAdapter();
         recyclerView.setAdapter(adapter);
 
+        setupClickListeners();
+        setupObservers();
+
         return root;
+    }
+
+    private void setupClickListeners() {
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String query = textSearch.getText().toString().trim();
+                if (query == null || query.isEmpty())
+                    return;
+
+                viewModel.search(query);
+            }
+        });
+    }
+
+    private void setupObservers() {
+        viewModel.getResults().observe(getViewLifecycleOwner(), conceptProperties -> {
+            adapter.setItems(conceptProperties);
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel.getResults().removeObservers(getViewLifecycleOwner());
     }
 }

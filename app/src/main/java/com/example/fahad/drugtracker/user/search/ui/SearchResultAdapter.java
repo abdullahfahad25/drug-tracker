@@ -1,4 +1,4 @@
-package com.example.fahad.drugtracker.user.search;
+package com.example.fahad.drugtracker.user.search.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;

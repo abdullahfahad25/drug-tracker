@@ -25,8 +25,10 @@ public class UserDrugsViewModel extends AndroidViewModel {
         return drugs;
     }
 
-    public void getUserDrugs() {
-        drugs.postValue(repository.getUserDrugs());
+    public void loadUserDrugs() {
+        repository.getUserDrugs(result -> {
+            drugs.postValue(result);
+        });
     }
 
     public void deleteDrug(DrugEntity drug) {

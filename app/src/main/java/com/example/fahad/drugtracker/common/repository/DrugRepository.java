@@ -19,6 +19,8 @@ import java.util.concurrent.Future;
 import retrofit2.Callback;
 
 public class DrugRepository {
+    private static final String TAG = "DrugRepository";
+
     private final ApiService apiService;
     private final DrugDao drugDao;
 
@@ -33,6 +35,10 @@ public class DrugRepository {
         void onFound(DrugEntity entity);
     }
 
+    public interface CompleteCallback<T> {
+        void onComplete(T result);
+    }
+
     public DrugRepository(Context context) {
         apiService = RetrofitInstance.getApiService();
         drugDao = DrugDatabase.getInstance(context).drugDao();
@@ -44,8 +50,11 @@ public class DrugRepository {
         apiService.getDrugs(name, "psn").enqueue(cb);
     }
 
-    public List<DrugEntity> getUserDrugs() {
-        return drugDao.getAll();
+    public void getUserDrugs(CompleteCallback<List<DrugEntity>> cb) {
+        executorService.submit(() -> {
+            List<DrugEntity> list = drugDao.getAll();
+            cb.onComplete(list);
+        });
     }
 
     public void insertUserDrug(final DrugEntity drug) {

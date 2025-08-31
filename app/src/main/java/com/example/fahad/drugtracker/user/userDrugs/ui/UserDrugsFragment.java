@@ -41,6 +41,8 @@ public class UserDrugsFragment extends Fragment {
         setupObservers();
         setupSwipeDeleteCallback();
 
+        viewModel.loadUserDrugs();
+
         return root;
     }
 

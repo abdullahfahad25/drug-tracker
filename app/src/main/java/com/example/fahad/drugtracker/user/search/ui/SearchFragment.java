@@ -1,5 +1,6 @@
 package com.example.fahad.drugtracker.user.search.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.fahad.drugtracker.R;
+import com.example.fahad.drugtracker.common.data.remote.model.DrugsResponse;
+import com.example.fahad.drugtracker.user.drugDetails.DrugDetailActivity;
 import com.example.fahad.drugtracker.user.search.viewmodel.SearchViewModel;
 
 public class SearchFragment extends Fragment {
@@ -55,6 +58,16 @@ public class SearchFragment extends Fragment {
                     return;
 
                 viewModel.search(query);
+            }
+        });
+
+        adapter.setListener(new SearchResultAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(DrugsResponse.ConceptProperty item) {
+                Intent intent = new Intent(getActivity(), DrugDetailActivity.class);
+                intent.putExtra("extra_name", item.name);
+                intent.putExtra("extra_rxcui", item.rxcui);
+                startActivity(intent);
             }
         });
     }

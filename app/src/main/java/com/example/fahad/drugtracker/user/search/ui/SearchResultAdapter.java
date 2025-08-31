@@ -16,10 +16,19 @@ import java.util.List;
 
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
     private List<DrugsResponse.ConceptProperty> items = new ArrayList<>();
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClicked(DrugsResponse.ConceptProperty item);
+    }
 
     public void setItems(List<DrugsResponse.ConceptProperty> list) {
         this.items = list != null ? list : new ArrayList<>();
         notifyDataSetChanged();
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -34,6 +43,11 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         DrugsResponse.ConceptProperty property = items.get(position);
         holder.title.setText(property.name);
         holder.rxcui.setText(property.rxcui);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null)
+                listener.onItemClicked(property);
+        });
     }
 
     @Override
